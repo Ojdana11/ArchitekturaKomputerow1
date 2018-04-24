@@ -87,8 +87,21 @@ class SingUp extends React.Component {
             invalidateLastname
         });
 
-        if (!invalidateEmail && !isPasswordWrong && !isRepeatedPasswordWrong)
-            this.props.history.push('/login');
+        if (!invalidateEmail && !isPasswordWrong && !isRepeatedPasswordWrong) {
+            singUpService.register({
+                password: this.state.password,
+                email: this.state.email,
+                firstname: this.state.firstname,
+                lastname: this.state.password
+            }, (loggedIn, t) => {
+                if (!loggedIn)
+                    this.setState({error: true, message: message});
+                else
+                    this.props.history.push('/login');
+            });
+
+        }
+
     };
 
     constructor(props) {

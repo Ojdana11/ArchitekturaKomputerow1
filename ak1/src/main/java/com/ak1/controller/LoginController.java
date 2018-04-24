@@ -8,23 +8,50 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.crypto.MacProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.ak1.model.User;
+import com.ak1.repository.UserRepository;
+import com.ak1.model.LoginResponseBody;
+import com.ak1.model.LoginModel;
+import com.ak1.views.Views;
+import java.sql.Timestamp;
+import java.util.*;
 
-@Controller
+
+@RestController
 public class LoginController {
+    @Autowired
+    UserRepository userRepository;
 
-    @RequestMapping(value ="/login", method = RequestMethod.GET)
-    @ResponseBody
-    public String login()
-    {
+    @JsonView(Views.Public.class)
+    @RequestMapping(value = "/singin", method = RequestMethod.POST)
+    public ResponseEntity<?> login(@RequestBody LoginModel data) {
+        User user = userRepository.findByEmail(data.getEmail());
 
-        return "tu będzie formularz logowania";
-    }
+        if (user == null) {
+            return new ResponseEntity(new LoginResponseBody(false, null, "User with that name isn't exist"),
+                    HttpStatus.OK);
+        }
 
-    //Może być niepotrzebne. możliwe że domyślnie jest to już zdefiniowane w spring security
-    @RequestMapping(value ="/login", method = RequestMethod.POST)
-    public String login(RequestParam HttpRequest){
+        if (!Objects.equals(user.getPassword(), data.getPassword())) {
+            return new ResponseEntity(new LoginResponseBody(false, null, "wrong_password"),
+                    HttpStatus.OK);
+        }
 
+        String token = Jwts.builder()
+                .setSubject(data.getEmail())
+                .compact();
 
-        return "status logowania";
+        return new ResponseEntity(new LoginResponseBody(true, token), HttpStatus.OK);
     }
 }

@@ -66,8 +66,23 @@ class Login extends React.Component {
 
         //TO DO: call API
         if (!invalidateEmail && !isPasswordWrong) {
-            this.props.history.push('/');
-            this.props.userHasAuthenticated(true);
+            singUpService.singin({
+                password: this.state.password,
+                email: this.state.email,
+            }, (loggedIn, t) => {
+                if (!loggedIn)
+                    this.setState({error: true, message: message});
+                else {
+                    this.props.history.push('/');
+                    this.props.userHasAuthenticated(true);
+                }
+
+            });
+
+        }
+
+        if (!invalidateEmail && !isPasswordWrong) {
+
         }
 
     };

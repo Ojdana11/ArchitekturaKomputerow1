@@ -28,3 +28,4 @@ nbdist/
 /src/main/webapp/yarn.lock
 /src/main/webapp/yarn-error.log
 /src/main/webapp/resources/
+/src/main/webapp/scripts/

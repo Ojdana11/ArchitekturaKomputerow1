@@ -1,21 +1,44 @@
 package com.ak1.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import com.ak1.views.Views;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
-    @Id
-    private Integer id;
 
+    public User() {
+    }
+
+    @JsonCreator
+    public User(@JsonProperty("firstname") String firstname,
+                @JsonProperty("lastname")  String lastname,
+                @JsonProperty("email") String email,
+                @JsonProperty("password") String password,
+                @JsonProperty("id") Integer id) {
+        this.firstname = firstname;
+
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.id = id;
+    }
+
+    @Id
+
+    private Integer id;
+    @JsonView(Views.Public.class)
     private String firstname;
 
+    @JsonView(Views.Public.class)
     private String lastname;
-
+    @JsonView(Views.Public.class)
     private String email;
-
+    @JsonView(Views.Public.class)
     private String password;
 
     public Integer getId() {
