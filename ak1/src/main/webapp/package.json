@@ -1,5 +1,5 @@
 {
-  "name": "spring-mvc-react",
+  "name": "ak1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,6 @@
     "watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Alexander Morgunov <fxl@list.ru>",
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "7.1.6",

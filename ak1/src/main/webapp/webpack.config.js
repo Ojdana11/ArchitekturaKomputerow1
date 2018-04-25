@@ -23,7 +23,7 @@ module.exports = {
             {
                 test: /\.css?$/,
                 exclude: /(node_modules|bower_components|public)/,
-                loader: "css-loader"
+                loader:['style-loader','css-loader']
             },],
     },
 

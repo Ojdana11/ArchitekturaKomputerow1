@@ -19,7 +19,7 @@ const singUpService = (() => {
     }
 
     //TO DO: Extract-refactor
-    function singin(newUserCredentials, pass, cb){
+    function singin(newUserCredentials, cb){
         if (!newUserCredentials.email || !newUserCredentials.password) {
             if (cb) cb(false, '');
             this.onChange(false);
@@ -28,7 +28,7 @@ const singUpService = (() => {
 
         $.ajax({
             type: 'POST',
-            url: `localhost:8080/singin`,
+            url: `http://localhost:8080/singin`,
             contentType: 'application/json',
             data: JSON.stringify(newUserCredentials),
             success: data => {
