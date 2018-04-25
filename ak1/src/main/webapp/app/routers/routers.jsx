@@ -6,6 +6,7 @@ import Home from "../containers/Home/Home";
 import Login from "../containers/Login/Login";
 import SingUp from "../containers/SingUp/SingUp";
 import Materials from "../containers/Materials/Materials";
+import Exercises from "../containers/Exercises/Exercises";
 import NotFound from "../containers/NotFound/NotFound";
 
 export default ({model}) =>
@@ -14,6 +15,7 @@ export default ({model}) =>
         <AppliedRoute path="/login" exact component={Login} props={model}/>
         <AppliedRoute path="/singup" exact component={SingUp}/>
         <PrivateRoute path="/materials" excat component={Materials} model={model}/>
+        <PrivateRoute path="/exercises" excat component={Exercises} model={model}/>
         <Route component={NotFound}/>
     </Switch>
 ;
