@@ -69,6 +69,7 @@ class MenuAppBar extends React.Component {
         const LoginPage = props => <RouteNavItem href='/login' model={childProps}  {...props}/>;
         const SingupPage = props => <RouteNavItem href='/singup' {...props}/>;
         const Materials = props => <RouteNavItem href='/materials' model={childProps} {...props}/>;
+        const Exercises = props => <RouteNavItem href='/exercises' model={childProps} {...props}/>;
 
         return (
             <div className={classes.root}>
@@ -79,13 +80,13 @@ class MenuAppBar extends React.Component {
                                     aria-label='Menu'>
                             <MenuIcon/>
                         </IconButton>}
-                        <Typography variant="title" color="inherit" className={classes.flex} component={HomePage}>COMPUTER
-                            ARITHMETIC</Typography>
-                        {!isAuthenticated && <div><Button color="inherit" component={LoginPage}>Login</Button>
-                            <Button color="inherit" component={SingupPage}>Sing up</Button></div>}
+                        <Typography variant="title" color="inherit" className={classes.flex} component={HomePage}>ARCHITEKTURA KOMPUTEROW</Typography>
+                        {!isAuthenticated && <div><Button color="inherit" component={LoginPage}>Logowanie</Button>
+                            <Button color="inherit" component={SingupPage}>Rejestracja</Button></div>}
                         {isAuthenticated && <div>
-                            <Button color="inherit" component={Materials}>Materials</Button>
-                            <Button color="inherit" onClick={this.logOut}>Logout</Button>
+                            <Button color="inherit" component={Exercises}>Zadania</Button>
+                            <Button color="inherit" component={Materials}>Materiały</Button>
+                            <Button color="inherit" onClick={this.logOut}>Wyloguj</Button>
                         </div>}
                     </Toolbar>
                 </AppBar>

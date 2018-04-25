@@ -38,16 +38,16 @@ const styles = theme => ({
     },
 });
 
-const defaultEmailText = 'Enter your email';
-const wrongEmailFormatText = 'Wrong email format';
-const defaultPasswordText = 'At least 8 characters';
-const wrongPasswordText = 'Password has less than 8 characters';
-const defaultRepeatedPasswordText = 'Type password once again';
-const wrongRepeatedPasswordText = 'Passwords are different';
-const defaultFistnameText = 'Enter your firstname';
-const wrongFistnameText = 'Firstname should contains at least 1 character';
-const defaultLastnameText = 'Enter your lastname';
-const wrongLastnameText = 'Firstname should contains at least 1 character';
+const defaultEmailText = 'Wprowadz adres email';
+const wrongEmailFormatText = 'Niepoporawny format email';
+const defaultPasswordText = 'Przynajmniej 8 znaków';
+const wrongPasswordText = 'Haslo ma mniej niz 8 znakow';
+const defaultRepeatedPasswordText = 'Wprowadz haslo ponownie';
+const wrongRepeatedPasswordText = 'Podane hasla sa rozne';
+const defaultFistnameText = 'Wprowadz imie';
+const wrongFistnameText = 'Imie powinno zawierac przynajmiej 1 znak';
+const defaultLastnameText = 'Wprowadz nazwisko';
+const wrongLastnameText = 'Nazwisko powinno zawierac przynajmiej 1 znak ';
 
 class SingUp extends React.Component {
 
@@ -135,10 +135,10 @@ class SingUp extends React.Component {
                         <form className='Inputs' noValidate autoComplete='off'>
                             <TextField
                                 id='firstname'
-                                label='Firstname'
+                                label='Imie'
                                 required
                                 error={this.state.invalidateFirstname}
-                                placeholder='Jhon'
+                                placeholder='Jan'
                                 className={classes.textField}
                                 helperText={this.state.firstnameHelperText}
                                 margin='normal'
@@ -146,7 +146,7 @@ class SingUp extends React.Component {
                             />
                             <TextField
                                 id='lastname'
-                                label='Lastname'
+                                label='Nazwisko'
                                 required
                                 error={this.state.invalidateLastname}
                                 placeholder='Doe'
@@ -168,7 +168,7 @@ class SingUp extends React.Component {
                             />
                             <TextField
                                 id='password'
-                                label='Password'
+                                label='Haslo'
                                 required
                                 className={classes.textField}
                                 error={this.state.isPasswordWrong}
@@ -180,7 +180,7 @@ class SingUp extends React.Component {
                             />
                             <TextField
                                 id='repeatedPassword'
-                                label='Repeat password'
+                                label='Powtorz haslo'
                                 required
                                 error={this.state.isRepeatedPasswordWrong}
                                 className={classes.textField}
@@ -193,7 +193,7 @@ class SingUp extends React.Component {
                         </form>
                     </CardContent>
                     <CardActions className='Action'>
-                        <Button className='Button' variant='raised' size='small' onClick={this.submit}>Submit</Button>
+                        <Button className='Button' variant='raised' size='small' onClick={this.submit}>Zarejestruj</Button>
                     </CardActions>
                 </Card>
             </div>

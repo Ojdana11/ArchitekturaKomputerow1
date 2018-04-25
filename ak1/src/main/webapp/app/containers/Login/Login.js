@@ -37,10 +37,10 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
     },
 });
-const defaultEmailText = 'Enter your email';
-const wrongEmailFormatText = 'Wrong email format';
-const defaultPasswordText = 'At least 8 characters';
-const wrongPasswordText = 'Password has less than 8 characters';
+const defaultEmailText = 'Wprowadz adres email';
+const wrongEmailFormatText = 'Niepoporawny format email';
+const defaultPasswordText = 'Przynajmniej 8 znaków';
+const wrongPasswordText = 'Haslo ma mniej niz 8 znakow';
 
 class Login extends React.Component {
 
@@ -122,7 +122,7 @@ class Login extends React.Component {
                             />
                             <TextField
                                 id='password'
-                                label='Password'
+                                label='Haslo'
                                 required
                                 className={classes.textField}
                                 error={this.state.isPasswordWrong}
@@ -135,7 +135,7 @@ class Login extends React.Component {
                         </form>
                     </CardContent>
                     <CardActions className='Action'>
-                        <Button className='Button' variant='raised' size='small' onClick={this.submit}>Submit</Button>
+                        <Button className='Button' variant='raised' size='small' onClick={this.submit}>Zaloguj</Button>
                     </CardActions>
                 </Card>
             </div>
