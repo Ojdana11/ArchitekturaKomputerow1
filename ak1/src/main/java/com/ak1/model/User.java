@@ -29,11 +29,9 @@ public class User {
     }
 
     @Id
-
     private Integer id;
     @JsonView(Views.Public.class)
     private String firstname;
-
     @JsonView(Views.Public.class)
     private String lastname;
     @JsonView(Views.Public.class)

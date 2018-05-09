@@ -1,8 +1,8 @@
 package com.ak1.algorithms;
 
 public interface IArithmeticOperation {
-    byte[] addition(byte [] a, byte [] b, byte base);
-    byte[] subtraction(byte [] a, byte [] b, byte base) throws Exception;
-    byte[] multiplication(byte [] a, byte [] b, byte base);
-    byte[] divisionTotal(byte [] a, byte[] b, byte base);
+    byte[] add(byte[] a, byte[] b, byte base) throws Exception;
+    byte[] sub(byte[] a, byte[] b, byte base) throws Exception;
+    byte[] multi(byte[] a, byte[] b, byte base);
+    byte[] divTotal(byte [] a, byte[] b, byte base);
 }
