@@ -21,12 +21,11 @@ public class NaturalSystemOperation implements IArithmeticOperation{
 
 
     @Override
-    public byte[] add(byte[] a, byte[] b, byte base) throws Exception {
+    public byte[] add(byte[] a, byte[] b, byte base){
         byte s, c=0;
         byte [] newValue;
         int size = a.length;
-        if(a.length!=b.length)
-            throw new Exception();
+
 
         newValue = new byte[size+1];
 
@@ -48,13 +47,11 @@ public class NaturalSystemOperation implements IArithmeticOperation{
     }
 
     @Override
-    public byte[] sub(byte[] a, byte[] b, byte base) throws Exception {
+    public byte[] sub(byte[] a, byte[] b, byte base){
 
         byte s, c=0;
         byte [] newValue;
         int size = a.length;
-        if(a.length!=b.length)
-            throw new Exception();
 
         newValue = new byte[size+1];
 

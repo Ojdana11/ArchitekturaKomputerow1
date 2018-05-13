@@ -1,19 +1,19 @@
 package com.ak1.model;
 
 public class CalculatorModel {
-    public String getArgA() {
+    public byte[] getArgA() {
         return argA;
     }
 
-    public void setArgA(String argA) {
+    public void setArgA(byte [] argA) {
         this.argA = argA;
     }
 
-    public String getArgB() {
+    public byte[] getArgB() {
         return argB;
     }
 
-    public void setArgB(String argB) {
+    public void setArgB(byte[] argB) {
         this.argB = argB;
     }
 
@@ -25,11 +25,11 @@ public class CalculatorModel {
         this.operation = operation;
     }
 
-    public int getBase() {
+    public byte getBase() {
         return base;
     }
 
-    public void setBase(int base) {
+    public void setBase(byte base) {
         this.base = base;
     }
 
@@ -41,9 +41,9 @@ public class CalculatorModel {
         this.whichSystem = whichSystem;
     }
 
-    String argA;
-    String argB;
+    byte [] argA;
+    byte [] argB;
     String operation;
-    int base;
+    byte base;
     String whichSystem;
 }
