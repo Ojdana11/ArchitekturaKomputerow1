@@ -2,15 +2,15 @@ package com.ak1.algorithms;
 
 import com.ak1.exceptions.ValueOutOfBase;
 
-public class NaturalSystemOperation implements IArithmeticOperation{
+public class SupplySystemOperation implements IArithmeticOperation{
 
 
-    private byte[] topArgumentUp(byte[] a, int newSize){
+    byte[] topArgumentUp(byte[] a, int newSize, byte extension){
         byte [] newA = new byte[newSize];
         int i;
         for(i=0;i<newSize-a.length;i++)
         {
-            newA[i]=0;
+            newA[i]=extension;
         }
         for(int j=i;j<newSize;j++)
         {
@@ -21,77 +21,98 @@ public class NaturalSystemOperation implements IArithmeticOperation{
 
 
     @Override
-    public byte[] add(byte[] a, byte[] b, byte base){
+    public byte[] add(byte[] a, byte[] b, byte base) throws Exception {
+        int size = java.lang.Math.max(a.length,b.length);
+        byte extensionA=0, extensionB=0;
+        if(a[0]>=base/2)
+            extensionA=(byte)(base-1);
+        if(b[0]>=base/2)
+            extensionB=(byte)(base-1);
+        a=topArgumentUp(a, size+1,extensionA );
+        b=topArgumentUp(b, size+1,extensionB);
         byte s, c=0;
         byte [] newValue;
-        int size = a.length;
-
-
         newValue = new byte[size+1];
 
-        for(int i=size-1;i>=0;i--)
+        for(int i=size;i>=0;i--)
         {
             s= (byte)(c+a[i]+b[i]);
             if(s>=base)
             {
-                newValue[i+1]=(byte) (s-base);
+                newValue[i]=(byte) (s-base);
                 c=1;
             }
             else{
-                newValue[i+1]=s;
+                newValue[i]=s;
                 c=0;
             }
         }
-        newValue[0]=c;
+
+
         return newValue;
     }
 
     @Override
-    public byte[] sub(byte[] a, byte[] b, byte base){
-
+    public byte[] sub(byte[] a, byte[] b, byte base) throws Exception {
+        int size = java.lang.Math.max(a.length,b.length);
+        byte extensionA=0, extensionB=0;
+        if(a[0]>=base/2)
+            extensionA=(byte)(base-1);
+        if(b[0]>=base/2)
+            extensionB=(byte)(base-1);
+        a=topArgumentUp(a, size+1,extensionA );
+        b=topArgumentUp(b, size+1,extensionB);
         byte s, c=0;
         byte [] newValue;
-        int size = a.length;
 
         newValue = new byte[size+1];
 
-        for(int i=size-1;i>=0;i--)
+        for(int i=size;i>=0;i--)
         {
             s= (byte)(a[i]-b[i]-c);
             if(s<0)
             {
-                newValue[i+1]=(byte)(s+base);
+                newValue[i]=(byte)(s+base);
                 c=1;
             }
             else{
-                newValue[i+1]=s;
+                newValue[i]=s;
                 c=0;
             }
         }
-        newValue[0]=c;
-
-        if(c==1)
-            newValue[0]=(byte)(base-1);
 
         return newValue;
     }
 
     @Override
     public byte[] multi(byte[] a, byte[] b, byte base) {
+        int size = java.lang.Math.max(a.length,b.length);
+        byte extensionA=0, extensionB=0;
+        if(a[0]>=base/2)
+            extensionA=(byte)(base-1);
+        if(b[0]>=base/2)
+            extensionB=(byte)(base-1);
+        a=topArgumentUp(a, size+1,extensionA );
+        b=topArgumentUp(b, size+1,extensionB);
+
         int s;
         byte c=0;
         int lengthOfPartialSum = a.length +b.length;
         byte [][]partialSum = new byte[b.length][lengthOfPartialSum];
         byte [] newValue = new byte[b.length+a.length];
-        for(int i=b.length-1;i>=0;i--)
+        for(int i=b.length-1,wiersz=0;i>=0;i--, wiersz++)
         {
-            for(int j=a.length-1, part =lengthOfPartialSum-i-1;j>=0;j--,part--)
+            int part =lengthOfPartialSum-wiersz-1;
+            for(int j=a.length-1;j>=0;j--,part--)
             {
                 s=b[i]*a[j]+c;
-                partialSum[i][part]=(byte)(s%base);
+                partialSum[wiersz][part]=(byte)(s%base);
                 c=(byte)(s/base);
             }
-            partialSum[i][0]=c;
+            for(int rest_extension=part;part>=0;part--) {
+                partialSum[i][rest_extension] = c;
+            }
+            //brak opcji w przypadku gdy któraś jest ujemna
         }
 
         c=0;
@@ -113,25 +134,35 @@ public class NaturalSystemOperation implements IArithmeticOperation{
 
     @Override
     public byte[] divTotal(byte[] a, byte[] b, byte base) {
+        int size = java.lang.Math.max(a.length,b.length);
+        byte extensionA=0, extensionB=0;
+        if(a[0]>=base/2)
+            extensionA=(byte)(base-1);
+        if(b[0]>=base/2)
+            extensionB=(byte)(base-1);
+        if(extensionA!=extensionB){
 
-        if(a[0]!=b[0]){
-            byte [] helpfulArrayA = new byte[b.length];
+            byte [] helpfulArrayA = new byte[a.length+1];
             byte [] helpfulArrayB = new byte[a.length+1];
-            helpfulArrayA[0]=a[0];
-            for(int i=1;i<b.length-1;i++){
+
+            helpfulArrayA[0]=extensionA;
+            for(int i=1;i<=a.length;i++){
                 helpfulArrayA[i]=a[i-1];
             }
+
+            helpfulArrayB[0]=extensionB;
+            for(int i=1;i<=b.length;i++){
+                helpfulArrayB[i]=b[i-1];
+            }
+            for(int i=b.length+1;i<=a.length;i++){
+                helpfulArrayB[i]=0;
+            }
             try {
-                helpfulArrayA = add(helpfulArrayA,b,base);
+                a = add(helpfulArrayA,helpfulArrayB,base);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            int iterrator;
-            for (iterrator=0;iterrator<helpfulArrayA.length;iterrator++){
-                helpfulArrayB[iterrator]=helpfulArrayA[iterrator];
-            }
-            helpfulArrayB[iterrator]=a[iterrator-1];
-            a=helpfulArrayA;
+
         }
         byte [][] bMultiple = new byte[base+1][b.length+1];
         byte[] multiple = {0};
@@ -150,10 +181,12 @@ public class NaturalSystemOperation implements IArithmeticOperation{
         int sizeA = a.length, subASize = b.length+1;
         byte [] subArrayA = new byte[subASize];
 
-        subArrayA[0]=0;
-        for(int i=1;i<subASize;i++)
+        ///////do tego momentu jest ok
+
+
+        for(int i=0;i<subASize;i++)
         {
-            subArrayA[i]=a[i-1];
+            subArrayA[i]=a[i];
         }
         byte pointerCurrentPosition = (byte)(subASize-2);
 
@@ -227,5 +260,6 @@ public class NaturalSystemOperation implements IArithmeticOperation{
             return 0;
         }
     }
+
 
 }
