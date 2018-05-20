@@ -73,7 +73,7 @@ const singUpService = (() => {
     function pretendRegisterRequest(newUserCredentials, cb) {
         $.ajax({
             type: 'POST',
-            url: `localhost:8080/register`,
+            url: `http://localhost:8080/registration`,
             contentType: 'application/json',
             data: JSON.stringify(newUserCredentials),
             success: data => {

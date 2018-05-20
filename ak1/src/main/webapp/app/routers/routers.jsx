@@ -5,8 +5,11 @@ import PrivateRoute from "./privateRoute.jsx"
 import Home from "../containers/Home/Home";
 import Login from "../containers/Login/Login";
 import SingUp from "../containers/SingUp/SingUp";
+import Feedback from "../containers/Feedback/Feedback";
+import Calculator from "../containers/Calculator/Calculator";
 import Materials from "../containers/Materials/Materials";
 import Exercises from "../containers/Exercises/Exercises";
+import Converter from "../containers/Converter/Converter";
 import NotFound from "../containers/NotFound/NotFound";
 
 export default ({model}) =>
@@ -16,6 +19,9 @@ export default ({model}) =>
         <AppliedRoute path="/singup" exact component={SingUp}/>
         <PrivateRoute path="/materials" excat component={Materials} model={model}/>
         <PrivateRoute path="/exercises" excat component={Exercises} model={model}/>
+        <PrivateRoute path="/feedback" excat component={Feedback} model={model}/>
+        <PrivateRoute path="/calculator" excat component={Calculator} model={model}/>
+        <PrivateRoute path="/converter" excat component={Converter} model={model}/>
         <Route component={NotFound}/>
     </Switch>
 ;

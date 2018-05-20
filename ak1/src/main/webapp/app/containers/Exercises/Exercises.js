@@ -7,8 +7,14 @@ import List, {ListItem, ListItemText,} from 'material-ui/List';
 import Grid from 'material-ui/Grid';
 import './Exercises.css';
 import exercies from './exerciesSources'
-import Card, {CardContent} from 'material-ui/Card';
+import ExpansionPanel from 'material-ui/ExpansionPanel';
+import ExpansionPanelDetails from 'material-ui/ExpansionPanel/ExpansionPanelDetails';
+import ExpansionPanelSummary from 'material-ui/ExpansionPanel/ExpansionPanelSummary';
 import Typography from 'material-ui/Typography';
+import ExpandMoreIcon from 'material-ui/Icon';
+import Button from 'material-ui/Button';
+import Input from 'material-ui/Input';
+import InputAdornment from 'material-ui/Input/InputAdornment';
 
 const drawerWidth = 240;
 
@@ -40,31 +46,58 @@ const styles = theme => ({
         margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`,
     },
     toolbar: theme.mixins.toolbar,
+    comments: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    addButton: {
+        float: 'right'
+    }
 });
 
 class ClippedDrawer extends React.Component {
     changeCategory = (index) => {
         return () => {
             this.setState({
-                exercies: exercies[index]
+                exercies: exercies[index],
+                comment: '',
+                expanded: false
             });
         };
 
     };
+    handleChange = panel => (event, expanded) => {
+        this.setState({
+            expanded: expanded ? panel : false,
+        });
+    };
+
+    addComment = () => {
+        console.log(this.state.comment);
+    };
+
+    saveComment = event => {
+        this.setState({
+            comment: event.target.value,
+        });
+    };
+
 
     constructor(props) {
         super(props);
         this.state = {
-            exercies: exercies[0]
+            expanded: null,
+            exercies: exercies[0],
+            comment: ''
         };
 
         this.changeCategory = this.changeCategory.bind(this);
-
     }
 
     render() {
         const {classes} = this.props;
         const toggledMenu = this.props.model.toggledMenu;
+        const {expanded} = this.state;
 
         return <div className={classes.root}>
             {toggledMenu && <Drawer
@@ -94,16 +127,32 @@ class ClippedDrawer extends React.Component {
             <main className={classes.content}>
                 {this.state.exercies.tasks.map((task, index) => {
                     return (
-                        <Card className={classes.card}>
-                            <CardContent>
-                                <Typography className={classes.title} color="textSecondary">
-                                    {index + 1}
-                                </Typography>
-                                <Typography component="p">
-                                    {task.content}
-                                </Typography>
-                            </CardContent>
-                        </Card>
+
+                        <ExpansionPanel expanded={expanded === index} onChange={this.handleChange(index)}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                                <Typography className={classes.heading}> {task.content}</Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails className={classes.comments}>
+                                <Input
+                                    multiline={1}
+                                    placeholder={'Dodaj komentarz'}
+                                    onChange={this.saveComment}
+                                    endAdornment={
+                                        <InputAdornment position="start">
+                                            <Button aria-label="add" size='small' onClick={this.addComment}
+                                                    className={classes.addButton}>Dodaj</Button>
+                                        </InputAdornment>
+                                    }
+                                />
+                                <div>
+                                    {/*TO DO: Fill with comments*/}
+                                    <Typography className={classes.heading}> </Typography>
+                                </div>
+
+                            </ExpansionPanelDetails>
+
+
+                        </ExpansionPanel>
                     )
                 })}
             </main>

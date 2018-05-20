@@ -57,7 +57,6 @@ class MenuAppBar extends React.Component {
     render() {
         const {classes} = this.props;
         const {isAuthenticated, anchorEl} = this.state;
-        const open = Boolean(anchorEl);
 
         const childProps = {
             isAuthenticated: this.state.isAuthenticated,
@@ -70,6 +69,9 @@ class MenuAppBar extends React.Component {
         const SingupPage = props => <RouteNavItem href='/singup' {...props}/>;
         const Materials = props => <RouteNavItem href='/materials' model={childProps} {...props}/>;
         const Exercises = props => <RouteNavItem href='/exercises' model={childProps} {...props}/>;
+        const Feedback = props => <RouteNavItem href='/feedback' model={childProps} {...props}/>;
+        const Calculator = props => <RouteNavItem href='/calculator' model={childProps} {...props}/>;
+        const Converter = props => <RouteNavItem href='/converter' model={childProps} {...props}/>;
 
         return (
             <div className={classes.root}>
@@ -80,12 +82,16 @@ class MenuAppBar extends React.Component {
                                     aria-label='Menu'>
                             <MenuIcon/>
                         </IconButton>}
-                        <Typography variant="title" color="inherit" className={classes.flex} component={HomePage}>ARCHITEKTURA KOMPUTEROW</Typography>
+                        <Typography variant="title" color="inherit" className={classes.flex} component={HomePage}>ARCHITEKTURA
+                            KOMPUTEROW</Typography>
                         {!isAuthenticated && <div><Button color="inherit" component={LoginPage}>Logowanie</Button>
                             <Button color="inherit" component={SingupPage}>Rejestracja</Button></div>}
                         {isAuthenticated && <div>
+                            <Button color="inherit" component={Calculator}>Kalkulator</Button>
+                            <Button color="inherit" component={Converter}>Konwerter</Button>
                             <Button color="inherit" component={Exercises}>Zadania</Button>
                             <Button color="inherit" component={Materials}>Materiały</Button>
+                            <Button color="inherit" component={Feedback}>Prześlij opinie</Button>
                             <Button color="inherit" onClick={this.logOut}>Wyloguj</Button>
                         </div>}
                     </Toolbar>
