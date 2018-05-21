@@ -19,7 +19,7 @@ public class SupplySystemOperation implements IArithmeticOperation{
 
 
     @Override
-    public byte[] add(byte[] a, byte[] b, byte base) throws Exception {
+    public byte[] add(byte[] a, byte[] b, byte base) {
         int size = java.lang.Math.max(a.length,b.length);
         byte extensionA=0, extensionB=0;
         if(a[0]>=base/2)
@@ -51,7 +51,7 @@ public class SupplySystemOperation implements IArithmeticOperation{
     }
 
     @Override
-    public byte[] sub(byte[] a, byte[] b, byte base) throws Exception {
+    public byte[] sub(byte[] a, byte[] b, byte base) {
         int size = java.lang.Math.max(a.length,b.length);
         byte extensionA=0, extensionB=0;
         if(a[0]>=base/2)

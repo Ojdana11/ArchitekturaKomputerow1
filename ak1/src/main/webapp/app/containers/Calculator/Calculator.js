@@ -11,7 +11,7 @@ import FormControl from 'material-ui/Form/FormControl';
 import FormLabel from 'material-ui/Form/FormLabel';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-
+import {isBinValid, isHexValid, isOctValid} from './validators'
 import $ from "jquery";
 
 const drawerWidth = 240;
@@ -71,6 +71,12 @@ const operations = {
     division: {sign: '/', polishName: 'Dzielenie'}
 };
 
+const systems = {
+    2: {validator: isBinValid},
+    8: {validator: isOctValid},
+    16: {validator: isHexValid},
+};
+
 class ClippedDrawer extends React.Component {
     changeOperation = event => {
         const operationName = Object.keys(operations).find((operationName) => operations[operationName].polishName === event.target.defaultValue);
@@ -81,7 +87,17 @@ class ClippedDrawer extends React.Component {
     };
 
     changeSystem = event => {
-        this.setState({system: event.target.value});
+        const validator = systems[event.target.value].validator;
+        const firstWrong = !validator(this.state.first);
+        const secondWrong = !validator(this.state.second);
+
+        this.setState({
+            system: event.target.value,
+            firstWrong,
+            secondWrong
+        });
+
+        this.setState({isOperationDisabled: this.isOperationDisabled()});
     };
 
     submit = () => {
@@ -112,6 +128,47 @@ class ClippedDrawer extends React.Component {
 
     };
 
+    isOperationDisabled = () => {
+        return this.state.firstWrong || this.state.secondWrong || !this.state.first || !this.state.second;
+    };
+
+    updateOperand = name => event => {
+        const validator = systems[this.state.system].validator;
+        const operandState = `${name}Wrong`;
+        const isValid = !validator(event.target.value);
+
+        this.setState({
+            [name]: event.target.value,
+            [operandState]: isValid,
+        });
+
+        this.setState({isOperationDisabled: this.isOperationDisabled()});
+    };
+    clear = () => {
+        this.setState({
+            result: '',
+            first: '',
+            second: '',
+            firstWrong: false,
+            secondWrong: false,
+            isOperationDisabled: true
+        })
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            expanded: null,
+            operation: operations.addition,
+            system: '2',
+            result: '',
+            operationName: 'addition',
+            firstWrong: false,
+            secondWrong: false,
+            isOperationDisabled: true
+        };
+    }
+
     convert(result) {
         return result.split('')
             .filter(((sign) => {
@@ -122,7 +179,6 @@ class ClippedDrawer extends React.Component {
     }
 
     normalize() {
-
         let first = this.state.first.split('');
         let second = this.state.second.split('');
         const lentgthDiff = first.length - second.length;
@@ -142,27 +198,6 @@ class ClippedDrawer extends React.Component {
         const argB = second.map((sign) => parseInt(sign));
 
         return {argA, argB};
-    }
-
-    updateOperand = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
-
-    clear = () => {
-        this.setState({result: '', first: '', second: ''})
-    };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            expanded: null,
-            operation: operations.addition,
-            system: '2',
-            result: '',
-            operationName: 'addition'
-        };
     }
 
     render() {
@@ -220,6 +255,7 @@ class ClippedDrawer extends React.Component {
                         className={classes.textField}
                         margin="normal"
                         value={this.state.first}
+                        error={this.state.firstWrong}
                         onChange={this.updateOperand('first')}
                     />
                 </div>
@@ -232,9 +268,11 @@ class ClippedDrawer extends React.Component {
                     className={classes.textField}
                     margin="normal"
                     value={this.state.second}
+                    error={this.state.secondWrong}
                     onChange={this.updateOperand('second')}
                 />
                 <div className={classes.equalButton}><Button className='Button' variant='raised' size='small'
+                                                             disabled={this.state.isOperationDisabled}
                                                              onClick={this.submit}>=</Button></div>
                 <TextField
                     label="Wynik"

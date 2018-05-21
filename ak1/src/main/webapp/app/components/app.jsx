@@ -27,7 +27,8 @@ class MenuAppBar extends React.Component {
     state = {
         anchorEl: null,
         isAuthenticated: false,
-        toggledMenu: true
+        toggledMenu: true,
+        openModal: false
     };
 
     handleChange = (event, checked) => {
@@ -52,6 +53,10 @@ class MenuAppBar extends React.Component {
 
     toggleMenu = () => {
         this.setState({toggledMenu: !this.state.toggledMenu});
+    };
+
+    handleClickOpen = () => {
+        this.setState({openModal: true});
     };
 
     render() {

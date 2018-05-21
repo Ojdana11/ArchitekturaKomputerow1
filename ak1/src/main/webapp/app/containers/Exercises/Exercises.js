@@ -15,6 +15,8 @@ import ExpandMoreIcon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import Input from 'material-ui/Input';
 import InputAdornment from 'material-ui/Input/InputAdornment';
+import FormControlLabel from 'material-ui/Form/FormControlLabel';
+import Switch from 'material-ui/Switch';
 
 const drawerWidth = 240;
 
@@ -130,8 +132,20 @@ class ClippedDrawer extends React.Component {
 
                         <ExpansionPanel expanded={expanded === index} onChange={this.handleChange(index)}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+
                                 <Typography className={classes.heading}> {task.content}</Typography>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            onChange={this.handleChange('checkedB')}
+                                            value="checkedB"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="Wykonane"
+                                />
                             </ExpansionPanelSummary>
+
                             <ExpansionPanelDetails className={classes.comments}>
                                 <Input
                                     multiline={1}

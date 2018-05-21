@@ -24,7 +24,6 @@ public class CalculatorController {
     @RequestMapping(value = "/compute", method = RequestMethod.POST)
     public ResponseEntity<?> compute(@RequestBody CalculatorModel data) {
 
-
         if(data.getWhichSystem() == "uzupelnieniowy")
             arithmeticOperation = new SupplySystemOperation();
         else {
