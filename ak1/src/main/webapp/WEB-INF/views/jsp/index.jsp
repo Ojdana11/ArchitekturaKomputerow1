@@ -19,8 +19,8 @@
 
 
 </head>
-<body>
-  <div id="root" class="wrapper"></div>
+<body style="margin: auto">
+  <div id="root"></div>
   <script src="${js}bundle.js"></script>
 </body>
 </html>

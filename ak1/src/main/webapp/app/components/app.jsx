@@ -9,6 +9,15 @@ import Routes from '../routers/routers.jsx';
 import RouteNavItem from '../routers/routeNavItem.jsx';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faCalculator from '@fortawesome/fontawesome-free-solid/faCalculator'
+import faRetweet from '@fortawesome/fontawesome-free-solid/faRetweet'
+import faTasks from '@fortawesome/fontawesome-free-solid/faTasks'
+import faBook from '@fortawesome/fontawesome-free-solid/faBook'
+import faEnvelopeOpen from '@fortawesome/fontawesome-free-solid/faEnvelopeOpen'
+import faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt'
+import faSignInAlt from '@fortawesome/fontawesome-free-solid/faSignInAlt'
+import faUserPlus from '@fortawesome/fontawesome-free-solid/faUserPlus'
 
 const styles = {
     root: {
@@ -21,6 +30,9 @@ const styles = {
         marginLeft: -12,
         marginRight: 20,
     },
+    icon: {
+        marginRight: '5px'
+    }
 };
 
 class MenuAppBar extends React.Component {
@@ -89,15 +101,32 @@ class MenuAppBar extends React.Component {
                         </IconButton>}
                         <Typography variant="title" color="inherit" className={classes.flex} component={HomePage}>ARCHITEKTURA
                             KOMPUTEROW</Typography>
-                        {!isAuthenticated && <div><Button color="inherit" component={LoginPage}>Logowanie</Button>
-                            <Button color="inherit" component={SingupPage}>Rejestracja</Button></div>}
+                        {!isAuthenticated && <div><Button color="inherit" component={LoginPage}>
+                            <FontAwesomeIcon className={classes.icon} icon={faSignInAlt}/>Logowanie
+                        </Button>
+                            <Button color="inherit" component={SingupPage}>
+                                <FontAwesomeIcon className={classes.icon} icon={faUserPlus}/>Rejestracja
+                            </Button>
+                        </div>}
                         {isAuthenticated && <div>
-                            <Button color="inherit" component={Calculator}>Kalkulator</Button>
-                            <Button color="inherit" component={Converter}>Konwerter</Button>
-                            <Button color="inherit" component={Exercises}>Zadania</Button>
-                            <Button color="inherit" component={Materials}>Materiały</Button>
-                            <Button color="inherit" component={Feedback}>Prześlij opinie</Button>
-                            <Button color="inherit" onClick={this.logOut}>Wyloguj</Button>
+                            <Button color="inherit" component={Calculator}>
+                                <FontAwesomeIcon className={classes.icon} icon={faCalculator}/>Kalkulator
+                            </Button>
+                            <Button color="inherit" component={Converter}>
+                                <FontAwesomeIcon className={classes.icon} icon={faRetweet}/>Konwerter
+                            </Button>
+                            <Button color="inherit" component={Exercises}>
+                                <FontAwesomeIcon className={classes.icon} icon={faTasks}/>Zadania
+                            </Button>
+                            <Button color="inherit" component={Materials}>
+                                <FontAwesomeIcon className={classes.icon} icon={faBook}/>Materiały
+                            </Button>
+                            <Button color="inherit" component={Feedback}>
+                                <FontAwesomeIcon className={classes.icon} icon={faEnvelopeOpen}/>Prześlij opinie
+                            </Button>
+                            <Button color="inherit" onClick={this.logOut}>
+                                <FontAwesomeIcon className={classes.icon} icon={faSignOutAlt}/>Wyloguj
+                            </Button>
                         </div>}
                     </Toolbar>
                 </AppBar>

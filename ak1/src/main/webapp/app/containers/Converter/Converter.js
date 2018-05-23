@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Card, {CardActions, CardContent} from 'material-ui/Card';
 import Button from 'material-ui/Button';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faExchangeAlt from '@fortawesome/fontawesome-free-solid/faExchangeAlt'
+import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
 
 import {withStyles} from "material-ui/styles/index";
 import $ from "jquery";
@@ -10,8 +13,17 @@ import $ from "jquery";
 const styles = theme => ({
     buttons: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'row'
+    },
+    convertButton: {
+        marginLeft: '50px'
+    },
+    clearButton: {
         marginRight: '50px'
+    },
+    icon: {
+        marginRight: '5px',
+        marginBottom: '3px'
     }
 });
 
@@ -78,8 +90,18 @@ class Converter extends Component {
                     </CardContent>
                     <CardActions className='Action'>
                         <div className={classes.buttons}>
-                            <Button className='Button' variant='raised' size='small' onClick={this.submit}>Przelicz</Button>
-                            <Button className='Button' variant='raised' size='small' onClick={this.clear}>Wyczysc</Button>
+                            <div className={classes.clearButton}>
+                                <Button className='Button' variant='raised' size='small'
+                                        onClick={this.clear}>
+                                    <FontAwesomeIcon className={classes.icon} icon={faTrash}/>Wyczysc
+                                </Button>
+                            </div>
+                            <div className={classes.convertButton}>
+                                <Button className='Button' variant='raised' size='small'
+                                        onClick={this.submit}>
+                                    <FontAwesomeIcon className={classes.icon} icon={faExchangeAlt}/>Przelicz
+                                </Button>
+                            </div>
                         </div>
 
                     </CardActions>

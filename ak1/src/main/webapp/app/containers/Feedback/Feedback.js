@@ -4,6 +4,8 @@ import {withStyles} from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Card, {CardActions, CardContent} from 'material-ui/Card';
 import Button from 'material-ui/Button';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faPaperPlane from '@fortawesome/fontawesome-free-solid/faPaperPlane'
 
 const styles = theme => ({
     container: {
@@ -34,6 +36,10 @@ const styles = theme => ({
         marginBottom: 12,
         color: theme.palette.text.secondary,
     },
+    icon: {
+        marginRight: '5px',
+        marginBottom: '3px'
+    }
 });
 
 class Login extends React.Component {
@@ -74,7 +80,9 @@ class Login extends React.Component {
                         </form>
                     </CardContent>
                     <CardActions className='Action'>
-                        <Button className='Button' variant='raised' size='small' onClick={this.submit}>Prześlij</Button>
+                        <Button className='Button' variant='raised' size='small' onClick={this.submit}>
+                            <FontAwesomeIcon className={classes.icon} icon={faPaperPlane}/>Prześlij
+                        </Button>
                     </CardActions>
                 </Card>
             </div>
