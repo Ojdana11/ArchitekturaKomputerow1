@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface TaskDoneRepository extends CrudRepository<TaskDone, Long> {
-    @Query(value="select t from TaskDone t where t.lastname = :lastname", nativeQuery = true)
+    @Query("select t from TaskDone t where t.lastname = :lastname")
     User findByUsername(@Param("lastname") String username);
 }

@@ -177,7 +177,6 @@ class ClippedDrawer extends React.Component {
             [operandState]: isValid,
         });
 
-        // this.setState({isOperationDisabled: this.isOperationDisabled()});
     };
     clear = () => {
         this.setState({
@@ -340,7 +339,7 @@ class ClippedDrawer extends React.Component {
                 />
                 <div className={classes.equalButton}>
                     <Button className='Button' variant='raised' size='small'
-                        disabled={this.state.isOperationDisabled}
+                        // disabled={this.state.isOperationDisabled}
                             onClick={this.submit}>
                         <FontAwesomeIcon icon={faEquals}/>
                     </Button>
