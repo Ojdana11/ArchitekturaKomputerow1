@@ -55,6 +55,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/singin").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/compute").permitAll()
+                .antMatchers("/allTasks").permitAll()
+
                 .antMatchers("/convertieee").permitAll()
                 .antMatchers("/admin/**").hasAuthority("admin")
                 .antMatchers("/user/**").hasAuthority("user").anyRequest()

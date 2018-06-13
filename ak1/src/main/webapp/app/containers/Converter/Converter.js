@@ -93,7 +93,7 @@ class Converter extends Component {
                             <div className={classes.clearButton}>
                                 <Button className='Button' variant='raised' size='small'
                                         onClick={this.clear}>
-                                    <FontAwesomeIcon className={classes.icon} icon={faTrash}/>Wyczysc
+                                    <FontAwesomeIcon className={classes.icon} icon={faTrash}/>Wyczyść
                                 </Button>
                             </div>
                             <div className={classes.convertButton}>

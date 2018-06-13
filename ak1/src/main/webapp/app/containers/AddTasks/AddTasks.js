@@ -42,7 +42,7 @@ const styles = theme => ({
     }
 });
 
-class Feedback extends React.Component {
+class AddTasks extends React.Component {
 
     handleChange = name => event => {
         this.setState({
@@ -51,13 +51,13 @@ class Feedback extends React.Component {
     };
 
     submit = () => {
-        console.log(this.state.feedback);
+        console.log(this.state.task);
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            feedback: ''
+            task: ''
         };
     }
 
@@ -70,12 +70,11 @@ class Feedback extends React.Component {
                     <CardContent>
                         <form className='Inputs' noValidate autoComplete='off'>
                             <TextField
-                                id='email'
-                                label='Twoja opinia'
+                                label='Nowe zadanie'
                                 multiline={1}
                                 className={classes.textField}
                                 margin='normal'
-                                onChange={this.handleChange('feedback')}
+                                onChange={this.handleChange('task')}
                             />
                         </form>
                     </CardContent>
@@ -91,8 +90,8 @@ class Feedback extends React.Component {
     }
 }
 
-Feedback.propTypes = {
+AddTasks.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Feedback);
+export default withStyles(styles)(AddTasks);

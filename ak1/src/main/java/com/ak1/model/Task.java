@@ -25,6 +25,10 @@ public class Task {
     private Integer id;
     @JsonView(Views.Public.class)
     private String question;
+
+    public Task() {
+    }
+
     @JsonView(Views.Public.class)
     private String answer;
 

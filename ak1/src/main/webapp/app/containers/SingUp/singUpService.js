@@ -19,7 +19,7 @@ const singUpService = (() => {
     }
 
     //TO DO: Extract-refactor
-    function singin(newUserCredentials, cb){
+    function singin(newUserCredentials, cb) {
         if (!newUserCredentials.email || !newUserCredentials.password) {
             if (cb) cb(false, '');
             this.onChange(false);
@@ -34,12 +34,15 @@ const singUpService = (() => {
             success: data => {
                 console.log(data);
                 if (data.token) {
+
+                    const isAdmin = (data.message === 'true');
                     cb({
                         authenticated: true,
                         token: data.token,
+                        isAdmin
                     })
                 } else {
-                    cb({ authenticated: false, message: data.message })
+                    cb({authenticated: false, message: data.message})
                 }
             },
             error: (xhr, status, err) => {
@@ -84,12 +87,12 @@ const singUpService = (() => {
                         token: data.token,
                     })
                 } else {
-                    cb({ authenticated: false, message: data.message })
+                    cb({authenticated: false, message: data.message})
                 }
             },
             error: (xhr, status, err) => {
                 console.error(status, err.toString());
-                cb({ authenticated: false })
+                cb({authenticated: false})
             }
         });
     }

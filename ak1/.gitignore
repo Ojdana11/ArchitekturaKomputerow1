@@ -29,3 +29,4 @@ nbdist/
 /src/main/webapp/yarn-error.log
 /src/main/webapp/resources/
 /src/main/webapp/scripts/
+!/src/main/webapp/resources/js/bundle.js

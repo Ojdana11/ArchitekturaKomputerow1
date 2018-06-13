@@ -5,7 +5,7 @@ const path = require('path');
 
 module.exports = {
 
-    entry:  "./app/index.jsx",
+    entry: "./app/index.jsx",
     output: {
         path: path.join(__dirname, './resources/js'),
         filename: 'bundle.js',
@@ -16,15 +16,23 @@ module.exports = {
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components|public)/,
             loader: "babel-loader"
-        }, {
-            test: /\.json$/,
-            loader: 'json-loader'
         },
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+            },
             {
                 test: /\.css?$/,
                 exclude: /(node_modules|bower_components|public)/,
-                loader:['style-loader','css-loader']
-            },],
+                loader: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loader: [
+                    'url-loader?limit=10000',
+                    'img-loader'
+                ]
+            }],
     },
 
 };

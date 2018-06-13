@@ -17,6 +17,7 @@ import Input from 'material-ui/Input';
 import InputAdornment from 'material-ui/Input/InputAdornment';
 import FormControlLabel from 'material-ui/Form/FormControlLabel';
 import Switch from 'material-ui/Switch';
+import $ from "jquery";
 
 const drawerWidth = 240;
 
@@ -54,6 +55,19 @@ const styles = theme => ({
     },
     addButton: {
         float: 'right'
+    }
+});
+let tasks = [];
+$.ajax({
+    type: 'GET',
+    url: `http://localhost:8080/allTasks`,
+    contentType: 'application/json',
+    success: (response) => {
+        console.log(response)
+        tasks = response;
+    },
+    error: (xhr, status, err) => {
+
     }
 });
 
@@ -127,13 +141,13 @@ class ClippedDrawer extends React.Component {
             </Drawer>}
 
             <main className={classes.content}>
-                {this.state.exercies.tasks.map((task, index) => {
+                {tasks.map((task, index) => {
                     return (
 
                         <ExpansionPanel expanded={expanded === index} onChange={this.handleChange(index)}>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
 
-                                <Typography className={classes.heading}> {task.content}</Typography>
+                                <Typography className={classes.heading}> {task.question}</Typography>
                                 <FormControlLabel
                                     control={
                                         <Switch

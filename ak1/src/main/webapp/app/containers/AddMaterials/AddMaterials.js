@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import TextField from 'material-ui/TextField';
 import Card, {CardActions, CardContent} from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faPaperPlane from '@fortawesome/fontawesome-free-solid/faPaperPlane'
+import {Input} from "material-ui";
 
 const styles = theme => ({
     container: {
@@ -42,7 +42,7 @@ const styles = theme => ({
     }
 });
 
-class Feedback extends React.Component {
+class AddMaterials extends React.Component {
 
     handleChange = name => event => {
         this.setState({
@@ -51,13 +51,13 @@ class Feedback extends React.Component {
     };
 
     submit = () => {
-        console.log(this.state.feedback);
+        console.log(this.state.file);
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            feedback: ''
+            file: ''
         };
     }
 
@@ -69,13 +69,12 @@ class Feedback extends React.Component {
                 <Card className='Card'>
                     <CardContent>
                         <form className='Inputs' noValidate autoComplete='off'>
-                            <TextField
-                                id='email'
-                                label='Twoja opinia'
-                                multiline={1}
+                            <Input
+                                type='file'
+                                label='Dodaj zasób'
                                 className={classes.textField}
                                 margin='normal'
-                                onChange={this.handleChange('feedback')}
+                                onChange={this.handleChange('file')}
                             />
                         </form>
                     </CardContent>
@@ -91,8 +90,8 @@ class Feedback extends React.Component {
     }
 }
 
-Feedback.propTypes = {
+AddMaterials.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Feedback);
+export default withStyles(styles)(AddMaterials);

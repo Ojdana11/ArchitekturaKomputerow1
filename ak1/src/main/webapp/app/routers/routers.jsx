@@ -10,6 +10,9 @@ import Calculator from "../containers/Calculator/Calculator";
 import Materials from "../containers/Materials/Materials";
 import Exercises from "../containers/Exercises/Exercises";
 import Converter from "../containers/Converter/Converter";
+import AddTasks from "../containers/AddTasks/AddTasks";
+import AddMaterials from "../containers/AddMaterials/AddMaterials";
+import UserFeedback from "../containers/UserFeedback/UserFeedback";
 import NotFound from "../containers/NotFound/NotFound";
 
 export default ({model}) =>
@@ -22,6 +25,9 @@ export default ({model}) =>
         <PrivateRoute path="/feedback" excat component={Feedback} model={model}/>
         <PrivateRoute path="/calculator" excat component={Calculator} model={model}/>
         <PrivateRoute path="/converter" excat component={Converter} model={model}/>
+        <PrivateRoute path="/addTasks" excat component={AddTasks} model={model}/>
+        <PrivateRoute path="/addMaterials" excat component={AddMaterials} model={model}/>
+        <PrivateRoute path="/userFeedback" excat component={UserFeedback} model={model}/>
         <Route component={NotFound}/>
     </Switch>
 ;

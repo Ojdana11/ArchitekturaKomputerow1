@@ -10,14 +10,13 @@ import RouteNavItem from '../routers/routeNavItem.jsx';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faCalculator from '@fortawesome/fontawesome-free-solid/faCalculator'
-import faRetweet from '@fortawesome/fontawesome-free-solid/faRetweet'
-import faTasks from '@fortawesome/fontawesome-free-solid/faTasks'
-import faBook from '@fortawesome/fontawesome-free-solid/faBook'
-import faEnvelopeOpen from '@fortawesome/fontawesome-free-solid/faEnvelopeOpen'
-import faSignOutAlt from '@fortawesome/fontawesome-free-solid/faSignOutAlt'
 import faSignInAlt from '@fortawesome/fontawesome-free-solid/faSignInAlt'
 import faUserPlus from '@fortawesome/fontawesome-free-solid/faUserPlus'
+import UserNav from './UserNav'
+import AdminNav from './AdminNav'
+
+import faSignOutAlt from "@fortawesome/fontawesome-free-solid/faSignOutAlt";
+
 
 const styles = {
     root: {
@@ -40,7 +39,8 @@ class MenuAppBar extends React.Component {
         anchorEl: null,
         isAuthenticated: false,
         toggledMenu: true,
-        openModal: false
+        openModal: false,
+        isAdmin: false
     };
 
     handleChange = (event, checked) => {
@@ -59,6 +59,10 @@ class MenuAppBar extends React.Component {
         this.setState({isAuthenticated: authenticated});
     };
 
+    isAdmin = value => {
+        this.setState({isAdmin: value});
+    };
+
     logOut = () => {
         this.setState({isAuthenticated: false});
     };
@@ -73,22 +77,18 @@ class MenuAppBar extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const {isAuthenticated, anchorEl} = this.state;
+        const {isAuthenticated, isAdmin} = this.state;
 
         const childProps = {
             isAuthenticated: this.state.isAuthenticated,
             userHasAuthenticated: this.userHasAuthenticated,
-            toggledMenu: this.state.toggledMenu
+            toggledMenu: this.state.toggledMenu,
+            isAdmin: this.isAdmin
         };
 
         const HomePage = props => <RouteNavItem href='/' {...props}/>;
         const LoginPage = props => <RouteNavItem href='/login' model={childProps}  {...props}/>;
         const SingupPage = props => <RouteNavItem href='/singup' {...props}/>;
-        const Materials = props => <RouteNavItem href='/materials' model={childProps} {...props}/>;
-        const Exercises = props => <RouteNavItem href='/exercises' model={childProps} {...props}/>;
-        const Feedback = props => <RouteNavItem href='/feedback' model={childProps} {...props}/>;
-        const Calculator = props => <RouteNavItem href='/calculator' model={childProps} {...props}/>;
-        const Converter = props => <RouteNavItem href='/converter' model={childProps} {...props}/>;
 
         return (
             <div className={classes.root}>
@@ -100,7 +100,8 @@ class MenuAppBar extends React.Component {
                             <MenuIcon/>
                         </IconButton>}
                         <Typography variant="title" color="inherit" className={classes.flex} component={HomePage}>ARCHITEKTURA
-                            KOMPUTEROW</Typography>
+                            KOMPUTEROW
+                        </Typography>
                         {!isAuthenticated && <div><Button color="inherit" component={LoginPage}>
                             <FontAwesomeIcon className={classes.icon} icon={faSignInAlt}/>Logowanie
                         </Button>
@@ -108,26 +109,15 @@ class MenuAppBar extends React.Component {
                                 <FontAwesomeIcon className={classes.icon} icon={faUserPlus}/>Rejestracja
                             </Button>
                         </div>}
-                        {isAuthenticated && <div>
-                            <Button color="inherit" component={Calculator}>
-                                <FontAwesomeIcon className={classes.icon} icon={faCalculator}/>Kalkulator
-                            </Button>
-                            <Button color="inherit" component={Converter}>
-                                <FontAwesomeIcon className={classes.icon} icon={faRetweet}/>Konwerter
-                            </Button>
-                            <Button color="inherit" component={Exercises}>
-                                <FontAwesomeIcon className={classes.icon} icon={faTasks}/>Zadania
-                            </Button>
-                            <Button color="inherit" component={Materials}>
-                                <FontAwesomeIcon className={classes.icon} icon={faBook}/>Materiały
-                            </Button>
-                            <Button color="inherit" component={Feedback}>
-                                <FontAwesomeIcon className={classes.icon} icon={faEnvelopeOpen}/>Prześlij opinie
-                            </Button>
-                            <Button color="inherit" onClick={this.logOut}>
-                                <FontAwesomeIcon className={classes.icon} icon={faSignOutAlt}/>Wyloguj
-                            </Button>
+                        {isAuthenticated && !isAdmin && <div>
+                            <UserNav/>
                         </div>}
+                        {isAuthenticated && isAdmin && <div>
+                            <AdminNav/>
+                        </div>}
+                        {isAuthenticated && <Button color="inherit" onClick={this.logOut}>
+                            <FontAwesomeIcon className={classes.icon} icon={faSignOutAlt}/>Wyloguj
+                        </Button>}
                     </Toolbar>
                 </AppBar>
                 <Routes model={childProps}/>

@@ -69,12 +69,13 @@ class Login extends React.Component {
             singUpService.singin({
                 password: this.state.password,
                 email: this.state.email,
-            }, (loggedIn, t) => {
-                if (!loggedIn)
+            }, (state, t) => {
+                if (!state)
                     this.setState({error: true, message: message});
                 else {
                     this.props.history.push('/');
                     this.props.userHasAuthenticated(true);
+                    this.props.isAdmin(state.isAdmin)
                 }
 
             });
